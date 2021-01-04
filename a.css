@@ -1,0 +1,9 @@
+@media screen and(max-width: 400px){
+body{
+    display: none;
+}
+#inputq{
+   width: 10px; 
+}
+
+}

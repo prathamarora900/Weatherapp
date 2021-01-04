@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title></title>
+
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+   
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+*{
+    margin: 0;
+    padding: 0;
+}
+        body{
+            
+    height: 100vh;
+background: url('./sea.jpg');
+    background-size: cover;
+    height: 100vh;
+    background-position: center;
+        }
+        #ban{
+            position: relative;
+            top: 0;
+            left: 0;
+            position: relative;
+             box-shadow: 0 10px 20px 
+           rgb(180, 177, 190);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 65px;
+    background: #145ac4;
+    display: flex;
+    background: darkslategrey;
+        }
+        .fona{
+display: flex;
+    justify-content: flex-start;
+    width: 116px;
+    /* align-items: center; */
+    text-align: center;
+    font-size: 1.40em;
+    color: cornflowerblue;
+    /* filter: brightness(0.5); */
+    margin-left: 0%;
+    font-family: cursive;
+    filter: brightness(0.5);
+    margin-top: 1%;
+        color: black;
+}
+    #containa{
+display: flex;
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    color: aqua;
+    position: relative;
+    top: -69px;
+    left: 0px;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+    
+
+    }
+    @media (min-width: 768px ){
+.container {
+    width: 325px;
+}}
+@media (min-width: 1100px){
+.container{
+    position: relative;
+    left: 2%;
+}
+}
+@media (min-width: 992px  ){
+.container {
+    /* width: 325px; */
+    width: 100px;
+    width: 100px;
+    margin-left: 35%;
+}
+#inpu{
+    width: 164px;
+    margin-left: 0%;
+    }
+#totalarea{
+    width: 241px;
+    }
+}
+#dat{
+    
+
+
+    width: 132px;
+    margin-left: 27%;
+    text-align: center;
+    border: 2px solid transparent;
+    width: 43%;
+    height: 200px;
+    background: azure;
+    border-radius: 3%;
+    display: none;
+    background: aquamarine;
+    background: #333030;
+}
+#images{
+    width: 104%;
+    margin-top: -2px;
+    margin-left: -2%;
+    height: 126px;
+}
+#dataarea{
+    margin-left: 39%;
+    margin-top: 0%;
+}
+sup{
+    font-size:82%;
+}
+#alldata{    text-align: center;
+    margin: 0% 0%;
+    font-size: 1.2em;
+    color: wheat;
+}
+#city_names{
+font-size: 1.3em;
+    color: aqua;
+    margin-left: 2%;}
+    </style>
+
+
+
+</head>
+<body>
+<div id="ban">
+
+  
+    <h3 class="fona">My Weather App</h3>
+
+</div>
+<div id="containa">
+    <div class="container">
+<div class="col-md-3">
+  <form class="navbar-form" role="search">
+    <div class="input-group add-on">
+      <input id="inpu" class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
+      <div class="input-group-btn">
+        <button  id="button" class="btn btn-default"><i class="glyphicon glyphicon-search" ></i></button>
+      </div>
+    </div>
+  </form>
+
+  <div id="totalarea">
+   <img src=" " id="dataarea">
+    <div id="dat">
+
+        <img id="images" src="">
+        <div id="alldata">
+       </div>
+        <div id="cityname"></div>
+   </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    let cityname=document.getElementById('cityname');
+    let cel=document.getElementById('cel');
+    let images=document.getElementById('images');
+    const alldata=document.getElementById('alldata');
+    let inpu=document.getElementById('inpu');
+let button=document.getElementById('button');
+button.addEventListener("click",submit);
+    function submit(e){
+        let dat=document.getElementById('dat');
+        dat.style.display="none";
+        const html=``;
+        e.preventDefault();
+        
+    
+        let city=inpu.value;
+        const url=`http://api.weatherstack.com/current?access_key=19ce4b3dcfbc4bedb14d06a1b3b79270&query=${city}`;
+const datafetch=fetch(url).then((response)=>{
+    
+    return response.json();
+    })
+const add=document.getElementById('dataarea');
+add.src="./785.gif";
+datafetch.then((data)=>{
+        if(data.success==false){
+            console.log("wrong");
+            alert('Wrong one');
+             dat.style.display="none";
+             add.src="";
+              inpu.value="";
+        }else if(data){
+           add.src="";
+        console.log(data);
+        inpu.value="";
+ dat.style.display="block";
+images.src=data.current.weather_icons;
+alldata.innerHTML=data.current.temperature+"<sup>o</sup>"+"C";
+const name_city=data.location.name;
+console.log(data.location.name);
+cityname.innerHTML=`<div id="city_names" >${name_city}<div>`;
+}
+    })
+datafetch.catch((e)=>{
+
+
+    })
+}
+
+</script>
